@@ -17,5 +17,5 @@ interface ERC777TokensRecipient {
         uint256 amount,
         bytes data,
         bytes operatorData
-    ) public;
+    ) external;
 }
