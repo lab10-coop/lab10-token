@@ -33,7 +33,7 @@ contract Lab10Token is ERC777Token, ERC20Token, ERC820Client {
 
     /* -- Constructor -- */
     //
-    /// @notice Constructor to create a ReferenceToken
+    /// @notice Constructor to create a Lab10Token
     /// @param _name Name of the new token
     /// @param _symbol Symbol of the new token.
     /// @param _granularity Minimum transferable chunk.

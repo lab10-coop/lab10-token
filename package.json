@@ -1,0 +1,64 @@
+{
+  "name": "lab10-token",
+  "version": "0.0.1",
+  "description": "Lab10 Token Management",
+  "keywords": [
+    "ERC20",
+    "ERC777",
+    "Token",
+    "Standard",
+    "Solidity",
+    "Ethereum"
+  ],
+  "main": "js/Lab10Token.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "scripts/test.sh --network 'test'"
+  },
+  "files": [
+    "build",
+    "contracts",
+    "logo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://code.lab10.io/graz/04-artis/lab10-token"
+  },
+  "contributors": [
+    {
+      "name": "Dietmar Hofer",
+      "url": "https://github.com/d10r"
+    }
+  ],
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://code.lab10.io/graz/04-artis/lab10-token/issues"
+  },
+  "homepage": "https://code.lab10.io/graz/04-artis/lab10-token",
+  "dependencies": {
+    "eip820": "0.0.20",
+    "openzeppelin-solidity": "1.9.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^4.16.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-formatter-pretty": "^1.3.0",
+    "eslint-formatter-stylish-verbose": "0.0.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "ganache-cli": "6.1.0",
+    "mocha": "^4.1.0",
+    "sha3": "^1.2.1",
+    "solidity-coverage": "^0.5.5",
+    "solium": "^1.1.8",
+    "truffle": "4.1.13",
+    "web3": "1.0.0-beta.34"
+  }
+}
