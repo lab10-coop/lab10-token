@@ -47,6 +47,7 @@ contract Lab10Token is ERC777Token, ERC20Token, ERC820Client {
         mGranularity = _granularity;
 
         setInterfaceImplementation("ERC777Token", this);
+        setInterfaceImplementation("ERC20Token", this);
 
         mint(msg.sender, _initialSupply);
     }
@@ -163,7 +164,6 @@ contract Lab10Token is ERC777Token, ERC20Token, ERC820Client {
         // note that preventLocking is false. Thus the ERC20 interface doesn't protect
         // against accidental locking of tokens in contracts not able to handle it
         doSend(msg.sender, msg.sender, _to, _amount, "", "", false);
-        emit Transfer(msg.sender, _to, _amount);
         return true;
     }
 
@@ -178,7 +178,6 @@ contract Lab10Token is ERC777Token, ERC20Token, ERC820Client {
         // Cannot be after doSend because of tokensReceived re-entry
         mAllowed[_from][msg.sender] = mAllowed[_from][msg.sender].sub(_amount);
         doSend(msg.sender, _from, _to, _amount, "", "", false);
-        emit Transfer(_from, _to, _amount);
         return true;
     }
 
@@ -257,6 +256,9 @@ contract Lab10Token is ERC777Token, ERC20Token, ERC820Client {
         callRecipient(_operator, _from, _to, _amount, _data, _operatorData, _preventLocking);
 
         emit Sent(_operator, _from, _to, _amount, _data, _operatorData);
+
+        // ERC20 compatible by default
+        emit Transfer(_from, _to, _amount);
     }
 
     /// @notice Helper function actually performing the burning of tokens.

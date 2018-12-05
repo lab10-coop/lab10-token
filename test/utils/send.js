@@ -94,41 +94,6 @@ exports.test = function(web3, accounts, token) {
       await eventsCalled;
     });
 
-    it(`should let ${utils.formatAccount(accounts[1])} ` +
-      `send 3 ${token.symbol} to ${utils.formatAccount(accounts[2])} ` +
-      '(ERC20 Disabled)', async function() {
-      await utils.assertTotalSupply(
-        web3, token, 10 * accounts.length + token.initialSupply);
-      await utils.assertBalance(web3, token, accounts[1], 10);
-      await utils.assertBalance(web3, token, accounts[2], 10);
-
-      await token.disableERC20();
-
-      let eventCalled = utils.assertEventWillBeCalled(
-        token.contract,
-        'Sent', {
-          operator: accounts[1],
-          from: accounts[1],
-          to: accounts[2],
-          amount: web3.utils.toWei('3'),
-          data: null,
-          operatorData: null,
-        }
-      );
-
-      await token.contract.methods
-        .send(accounts[2], web3.utils.toWei('3'), '0x')
-        .send({ gas: 300000, from: accounts[1] });
-
-      await utils.getBlock(web3);
-
-      await utils.assertTotalSupply(
-        web3, token, 10 * accounts.length + token.initialSupply);
-      await utils.assertBalance(web3, token, accounts[1], 7);
-      await utils.assertBalance(web3, token, accounts[2], 13);
-      await eventCalled;
-    });
-
     it(`should not let ${utils.formatAccount(accounts[1])} ` +
       `send 11 ${token.symbol} (not enough funds)`, async function() {
       await utils.assertTotalSupply(

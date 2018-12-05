@@ -13,108 +13,108 @@ exports.test = function(web3, accounts, token) {
         .mintForAllAccounts(web3, accounts, token, accounts[0], '10', 100000);
     });
 
-    it('should list the default operators', async function() {
-      const defaultOperators = await token.contract.methods
-        .defaultOperators()
-        .call();
+    // it('should list the default operators', async function() {
+    //   const defaultOperators = await token.contract.methods
+    //     .defaultOperators()
+    //     .call();
 
-      assert.deepEqual(
-        defaultOperators.map(web3.utils.toChecksumAddress),
-        token.defaultOperators.map(web3.utils.toChecksumAddress),
-      );
-    });
+    //   assert.deepEqual(
+    //     defaultOperators.map(web3.utils.toChecksumAddress),
+    //     token.defaultOperators.map(web3.utils.toChecksumAddress),
+    //   );
+    // });
 
-    for (let defaultOperator of token.defaultOperators) {
-      it(`should detect ${utils.formatAccount(defaultOperator)} is a default ` +
-        'operator for all accounts', async function() {
-        for (let account of accounts) {
-          assert.isTrue(
-            await token.contract.methods
-              .isOperatorFor(defaultOperator, account)
-              .call()
-          );
-        }
-      });
-    }
+    // for (let defaultOperator of token.defaultOperators) {
+    //   it(`should detect ${utils.formatAccount(defaultOperator)} is a default ` +
+    //     'operator for all accounts', async function() {
+    //     for (let account of accounts) {
+    //       assert.isTrue(
+    //         await token.contract.methods
+    //           .isOperatorFor(defaultOperator, account)
+    //           .call()
+    //       );
+    //     }
+    //   });
+    // }
 
-    it(`should let ${utils.formatAccount(accounts[3])} revoke the default ` +
-      `operator ${utils.formatAccount(token.defaultOperators[1])}`,
-    async function() {
-      assert.isTrue(
-        await token.contract.methods
-          .isOperatorFor(token.defaultOperators[1], accounts[3])
-          .call()
-      );
+    // it(`should let ${utils.formatAccount(accounts[3])} revoke the default ` +
+    //   `operator ${utils.formatAccount(token.defaultOperators[1])}`,
+    // async function() {
+    //   assert.isTrue(
+    //     await token.contract.methods
+    //       .isOperatorFor(token.defaultOperators[1], accounts[3])
+    //       .call()
+    //   );
 
-      let eventCalled = utils.assertEventWillBeCalled(
-        token.contract, 'RevokedOperator', {
-          operator: web3.utils.toChecksumAddress(token.defaultOperators[1]),
-          tokenHolder: accounts[3],
-        }
-      );
+    //   let eventCalled = utils.assertEventWillBeCalled(
+    //     token.contract, 'RevokedOperator', {
+    //       operator: web3.utils.toChecksumAddress(token.defaultOperators[1]),
+    //       tokenHolder: accounts[3],
+    //     }
+    //   );
 
-      await token.contract.methods
-        .revokeOperator(token.defaultOperators[1])
-        .send({ from: accounts[3], gas: 300000 });
+    //   await token.contract.methods
+    //     .revokeOperator(token.defaultOperators[1])
+    //     .send({ from: accounts[3], gas: 300000 });
 
-      await utils.getBlock(web3);
-      assert.isFalse(
-        await token.contract.methods
-          .isOperatorFor(token.defaultOperators[1], accounts[3])
-          .call()
-      );
-      await eventCalled;
-    });
+    //   await utils.getBlock(web3);
+    //   assert.isFalse(
+    //     await token.contract.methods
+    //       .isOperatorFor(token.defaultOperators[1], accounts[3])
+    //       .call()
+    //   );
+    //   await eventCalled;
+    // });
 
-    it(`should let ${utils.formatAccount(accounts[4])} reauthorize the ` +
-      'previously revoked default operator ' +
-      `${utils.formatAccount(token.defaultOperators[0])}`,
-    async function() {
-      assert.isTrue(
-        await token.contract.methods
-          .isOperatorFor(token.defaultOperators[0], accounts[4])
-          .call()
-      );
+    // it(`should let ${utils.formatAccount(accounts[4])} reauthorize the ` +
+    //   'previously revoked default operator ' +
+    //   `${utils.formatAccount(token.defaultOperators[0])}`,
+    // async function() {
+    //   assert.isTrue(
+    //     await token.contract.methods
+    //       .isOperatorFor(token.defaultOperators[0], accounts[4])
+    //       .call()
+    //   );
 
-      let eventsCalled = utils.assertEventsWillBeCalled(
-        token.contract, [{
-          name: 'RevokedOperator',
-          data: {
-            operator: web3.utils.toChecksumAddress(token.defaultOperators[0]),
-            tokenHolder: accounts[4],
-          },
-        }, {
-          name: 'AuthorizedOperator',
-          data: {
-            operator: web3.utils.toChecksumAddress(token.defaultOperators[0]),
-            tokenHolder: accounts[4],
-          },
-        }]
-      );
+    //   let eventsCalled = utils.assertEventsWillBeCalled(
+    //     token.contract, [{
+    //       name: 'RevokedOperator',
+    //       data: {
+    //         operator: web3.utils.toChecksumAddress(token.defaultOperators[0]),
+    //         tokenHolder: accounts[4],
+    //       },
+    //     }, {
+    //       name: 'AuthorizedOperator',
+    //       data: {
+    //         operator: web3.utils.toChecksumAddress(token.defaultOperators[0]),
+    //         tokenHolder: accounts[4],
+    //       },
+    //     }]
+    //   );
 
-      await token.contract.methods
-        .revokeOperator(token.defaultOperators[0])
-        .send({ from: accounts[4], gas: 300000 });
+    //   await token.contract.methods
+    //     .revokeOperator(token.defaultOperators[0])
+    //     .send({ from: accounts[4], gas: 300000 });
 
-      await utils.getBlock(web3);
-      assert.isFalse(
-        await token.contract.methods
-          .isOperatorFor(token.defaultOperators[0], accounts[4])
-          .call()
-      );
+    //   await utils.getBlock(web3);
+    //   assert.isFalse(
+    //     await token.contract.methods
+    //       .isOperatorFor(token.defaultOperators[0], accounts[4])
+    //       .call()
+    //   );
 
-      await token.contract.methods
-        .authorizeOperator(token.defaultOperators[0])
-        .send({ from: accounts[4], gas: 300000 });
+    //   await token.contract.methods
+    //     .authorizeOperator(token.defaultOperators[0])
+    //     .send({ from: accounts[4], gas: 300000 });
 
-      await utils.getBlock(web3);
-      assert.isTrue(
-        await token.contract.methods
-          .isOperatorFor(token.defaultOperators[0], accounts[4])
-          .call()
-      );
-      await eventsCalled;
-    });
+    //   await utils.getBlock(web3);
+    //   assert.isTrue(
+    //     await token.contract.methods
+    //       .isOperatorFor(token.defaultOperators[0], accounts[4])
+    //       .call()
+    //   );
+    //   await eventsCalled;
+    // });
 
     it(`should detect ${utils.formatAccount(accounts[3])} is not an operator ` +
       `for ${utils.formatAccount(accounts[1])}`, async function() {
