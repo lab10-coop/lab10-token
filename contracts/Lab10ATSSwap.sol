@@ -5,6 +5,7 @@ import { ERC820Client } from "./ERC820Client.sol";
 contract Lab10ATSSwap is ERC820Client {
     address public owner;
     address public swappableToken;
+    uint256 public constant LAB10_ATS_MULTIPLIER = 75;
 
     event Swapped(address account, uint256 lab10Amount, uint256 atsAmount);
 
@@ -22,6 +23,7 @@ contract Lab10ATSSwap is ERC820Client {
         }
     }
 
+    // swaps received tokens
     function tokensReceived(
         address,
         address _from,
@@ -34,7 +36,8 @@ contract Lab10ATSSwap is ERC820Client {
     {
         // accept only our tokens
         require(msg.sender == swappableToken);
-        uint256 atsAmount = _amount * 75;
+        uint256 atsAmount = _amount * LAB10_ATS_MULTIPLIER;
+        // transfer corresponding ATS to the sender
         _from.transfer(atsAmount);
         emit Swapped(_from, _amount, atsAmount);
     }
