@@ -31,6 +31,8 @@ contract Lab10Token is ERC777Token, ERC20Token, ERC820Client {
     // for ERC-20
     mapping(address => mapping(address => uint256)) internal mAllowed;
 
+    event ControllerChangedTo(address newController);
+
     /* -- Constructor -- */
     //
     /// @notice Constructor to create a Lab10Token
@@ -58,7 +60,9 @@ contract Lab10Token is ERC777Token, ERC20Token, ERC820Client {
     }
 
     function setController(address _newController) public onlyController {
+        require(_newController != controller);
         controller = _newController;
+        emit ControllerChangedTo(_newController);
     }
 
     function mint(address _tokenHolder, uint256 _amount) public onlyController {
