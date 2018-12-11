@@ -38,6 +38,7 @@
   },
   "homepage": "https://code.lab10.io/graz/04-artis/lab10-token",
   "dependencies": {
+    "csv-parse": "^4.1.0",
     "openzeppelin-solidity": "1.9.0"
   },
   "devDependencies": {
