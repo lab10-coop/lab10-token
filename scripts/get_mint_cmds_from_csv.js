@@ -50,9 +50,17 @@ async function printMintCommands(tasks) {
     ==================
     `);
     
+    console.log('minting:');
     for(const task of tasks) {
         console.log(
 `await lab10.mint("${task.receiver}", web3.utils.toWei("${task.amount}"))`
+        );
+    };
+    
+    console.log('\nfuel with 1 ATS for tx fees:');
+    for(const task of tasks) {
+        console.log(
+`await web3.eth.sendTransaction( { to: "${task.receiver}", value: web3.utils.toWei("1") } )`
         );
     };
 }
