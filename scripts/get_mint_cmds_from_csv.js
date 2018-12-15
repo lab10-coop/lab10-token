@@ -60,7 +60,7 @@ async function printMintCommands(tasks) {
     console.log('\nfuel with 1 ATS for tx fees:');
     for(const task of tasks) {
         console.log(
-`await web3.eth.sendTransaction( { to: "${task.receiver}", value: web3.utils.toWei("1") } )`
+`await web3.eth.sendTransaction( { to: "${task.receiver}", value: web3.utils.toWei("1"), gasPrice: 1000000000 } )`
         );
     };
 }
