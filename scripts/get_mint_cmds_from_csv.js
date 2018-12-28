@@ -11,6 +11,7 @@ const web3 = require('web3');
 
 // have an upper limit for accepted amounts. Choosen somewhat arbitrarily
 const MAX_TOKEN_PER_TASK = 500000;
+const TOKEN_ADDR = '0x4dA499dDF9a465e4D47C099B11e8e699894bcA24';
 
 let goodTasks = [];
 let badTasks = [];
@@ -50,7 +51,11 @@ async function printMintCommands(tasks) {
     ==================
     `);
     
-    console.log('minting:');
+    console.log('prepare:');
+    console.log('web3.eth.getAccounts().then(accs => web3.eth.defaultAccount = accs[0])');
+    console.log(`lab10 = await Lab10Token.at("${TOKEN_ADDR}")`);
+
+    console.log('\nminting:');
     for(const task of tasks) {
         console.log(
 `await lab10.mint("${task.receiver}", web3.utils.toWei("${task.amount}"))`
@@ -63,6 +68,7 @@ async function printMintCommands(tasks) {
 `await web3.eth.sendTransaction( { to: "${task.receiver}", value: web3.utils.toWei("1"), gasPrice: 1000000000 } )`
         );
     };
+    console.log('');
 }
 
 (async () => {
