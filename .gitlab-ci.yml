@@ -1,0 +1,10 @@
+# minimal CI script for the minimal runner 
+stages:
+  - deploy
+
+staging:
+  stage: deploy
+  script:
+    - cd /var/www/nginx/$CI_PROJECT_NAME
+    - git pull
+
