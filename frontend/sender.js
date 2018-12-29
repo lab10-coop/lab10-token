@@ -21,8 +21,7 @@ let viewUpdateTimer = null;
 let BN;
 
 const GAS_PRICE = 1000000000; // 1G for ARTIS networks
-const CHAIN_ID = 246785; // tau1
-const EXPLORER_TX_BASE = 'http://blockscout.tau1.artis.network/tx';
+let chainName = '?'; // caution: there's logic depending on this init value
 
 async function init() {
     console.log('init');
@@ -52,10 +51,12 @@ async function init() {
     } else {
         // check network_id
         const networkId = await web3.eth.net.getId();
-        if (networkId !== CHAIN_ID) {
-            alert('Not on ARTIS tau1. TODO: link to instructions for connecting to tau1');
-            document.getElementById('loading-status-span').innerHTML = 'failed :-(';
+        if(networkId === 246785) {
+            chainName = 'tau1.artis';
+        } else if(networkId === 246529) {
+            chainName = 'sigma1.artis';
         }
+        document.getElementById('chain-span').innerHTML = `${networkId} (${chainName})`;
 
         try {
             // TODO: this may fail in non-Metamask environments
@@ -190,8 +191,12 @@ async function onSendClicked() {
     try {
         const receipt = await sendFunds(receiverVal, amountVal);
         if (receipt) {
-            const txHash = receipt.transactionHash;
-            document.getElementById('explorer-link').href = `${EXPLORER_TX_BASE}/${txHash}`;
+            if(chainName !== '?') {
+                const txHash = receipt.transactionHash;
+                const explorer_tx_base = `http://blockscout.${chainName}.network/tx`;
+                document.getElementById('explorer-link').href = `${explorer_tx_base}/${txHash}`;
+                document.getElementById('explorer-div').hidden = false;
+            }
             document.getElementById('sent-div').hidden = false;
         }
     } catch (e) {

@@ -14,6 +14,7 @@
     <h2>Simple ERC777 Token Sender</h2>
     Using the <a href="https://eips.ethereum.org/EIPS/eip-777" target="_blank">ERC777</a> send method has a big advantage: protects against accidental sending to contracts which can't handle the token.<br>
     <br>
+    Chain id: <span id="chain-span" style="color: darkgreen; font-family: monospace"> - </span><br>
     Contract address: <span id="addr-span" style="color: darkgreen; font-family: monospace"> - </span><br>
     Token name: <span id="name-span" style="color: darkgreen; font-family: monospace"> - </span><br>
     Token symbol: <span id="symbol-span" style="color: darkgreen; font-family: monospace"> - </span><br>
@@ -64,7 +65,9 @@
     </div>
 
     <div id="sent-div" hidden>
-        <b>The transaction succeeded. <a id="explorer-link" target="_blank">Click here</a> to see in explorer.</b>
+        <b>The transaction succeeded.<br>
+            <div id="explorer-div" hidden><a id="explorer-link" target="_blank">Click here</a> to see in explorer.</div>
+        </b>
     </div>
 
     <script src="web3-1.0.0-beta3.37.min.js"></script>
