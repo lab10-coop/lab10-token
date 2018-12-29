@@ -1,0 +1,73 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    </head>
+
+    <body style="padding: 1em; font-family: 'Work Sans'">
+
+    <div id="loading-div">
+        <h2>Loading... <span id="loading-status-span"></span></h2>
+    </div>
+
+    <h2>Simple ERC777 Token Sender</h2>
+    Using the <a href="https://eips.ethereum.org/EIPS/eip-777" target="_blank">ERC777</a> send method has a big advantage: protects against accidental sending to contracts which can't handle the token.<br>
+    <br>
+    Contract address: <span id="addr-span" style="color: darkgreen; font-family: monospace"> - </span><br>
+    Token name: <span id="name-span" style="color: darkgreen; font-family: monospace"> - </span><br>
+    Token symbol: <span id="symbol-span" style="color: darkgreen; font-family: monospace"> - </span><br>
+    Token supply: <span id="supply-span" style="color: darkgreen; font-family: monospace"> - </span><br>
+    Token granularity: <span id="granularity-span" style="color: darkgreen; font-family: monospace"> - </span><br>
+    <!-- Token age: <span id="age-span" style="color: darkgreen; font-family: monospace"> - </span><br> -->
+    <br>
+    <hr>
+    <br>
+
+    <div id="send-div">
+        Sender address: <span id="sender-address-span" style="color: darkgreen; font-family: monospace"> - </span>
+        <span class="pure-form-message-inline">This is the account currently exposed by your web3 provider. Refresh if not up to date.</span><br>
+        Sender balance: <span id="sender-balance-span" style="color: darkgreen; font-family: monospace"> - </span>
+        <span class="pure-form-message-inline">(Last updated in block <span id="blocknr-span" style="font-family: monospace"> - </span>)</span><br>
+        <br>
+        <form class="pure-form pure-form-aligned">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="receiver">Receiver</label>
+                    <input id="receiver" type="text" placeholder="Receiver address" value="0x655db412492c05AC60552B5fF770DDC5F47128A1">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="amount">Amount</label>
+                    <input id="amount" type="number" min="0" step="0.000000000000000001" placeholder="Amount of tokens" value="1">
+                </div>
+
+                <div class="pure-controls">
+                    <button
+                            type="button"
+                            id="send-btn"
+                            class="pure-button pure-button-primary">
+                        Send
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="incompatible-div" hidden>
+        <b style="color: orangered">This contract was not recognized as an ERC777 token.</b>
+    </div>
+
+    <div id="waiting-div" hidden>
+        <h3 style="color: darkorange">Waiting for transaction to be executed: <span id="tx-timer-span">0</span> s</h3>
+        <span style="font-size: small">(This can progress only once you confirmed the transaction request. If you did and it remains stuck for over a minute afterwards, you may start shouting at the developer - or fix your Internet connection)</span>
+    </div>
+
+    <div id="sent-div" hidden>
+        <b>The transaction succeeded. <a id="explorer-link" target="_blank">Click here</a> to see in explorer.</b>
+    </div>
+
+    <script src="web3-1.0.0-beta3.37.min.js"></script>
+    <script src="sender.js"></script>
+    </body>
+</html>
