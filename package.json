@@ -10,7 +10,6 @@
     "Solidity",
     "Ethereum"
   ],
-  "main": "js/Lab10Token.js",
   "directories": {
     "test": "test"
   },
@@ -18,25 +17,27 @@
     "test": "scripts/test.sh --network 'test'"
   },
   "files": [
-    "build",
-    "contracts",
-    "logo"
+    "contracts"
   ],
   "repository": {
     "type": "git",
-    "url": "https://code.lab10.io/graz/04-artis/lab10-token"
+    "url": "https://github.com/lab10-coop/lab10-token"
   },
   "contributors": [
     {
       "name": "Dietmar Hofer",
       "url": "https://github.com/d10r"
+    },
+    {
+      "name": "David Forstenlechner",
+      "url": "https://github.com/dforsten"
     }
   ],
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://code.lab10.io/graz/04-artis/lab10-token/issues"
+    "url": "https://github.com/lab10-coop/lab10-token/issues"
   },
-  "homepage": "https://code.lab10.io/graz/04-artis/lab10-token",
+  "homepage": "https://lab10.coop/",
   "dependencies": {
     "csv-parse": "^4.1.0",
     "openzeppelin-solidity": "1.9.0"
