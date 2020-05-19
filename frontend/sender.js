@@ -37,7 +37,7 @@ async function init() {
         }
         tokenAddress = maybeAddr;
     } catch(e) {
-        alert('A valid contract address needs to be provided via URL. Example: .../subscribe.html#0x5F058596eE426B54008da1Dc7c61AeA3FF64a716');
+        alert('A valid contract address needs to be provided via URL. Example: .../sender.html#0x5F058596eE426B54008da1Dc7c61AeA3FF64a716');
         document.getElementById('loading-status-span').innerHTML = 'failed :-(';
     }
 
