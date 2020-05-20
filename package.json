@@ -39,7 +39,7 @@
   },
   "homepage": "https://lab10.coop/",
   "dependencies": {
-    "csv-parse": "^4.1.0",
+    "csv-parse": "^4.4.6",
     "openzeppelin-solidity": "1.9.0"
   },
   "devDependencies": {
